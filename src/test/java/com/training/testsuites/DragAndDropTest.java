@@ -41,7 +41,7 @@ public class DragAndDropTest extends BaseTestSetup {
 		LoginService.login();
 	}
 
-	@Test(invocationCount = 3 , invocationTimeOut = 10000)
+	@Test(invocationCount = 3 , invocationTimeOut = 10000, groups = {"smoke"})
 	public void verifyFrame_DragAndDrop_Elements() {
 
 		dragAndDropPage.clickInteractionLink();

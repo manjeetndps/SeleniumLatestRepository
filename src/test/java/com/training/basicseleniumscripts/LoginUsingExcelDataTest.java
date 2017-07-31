@@ -1,22 +1,21 @@
 package com.training.basicseleniumscripts;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.openqa.selenium.By;
-import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 import com.training.constants.ConfigConstant;
 import com.training.fileparser.ExcelFileReader;
 import com.training.webdriverhelper.BaseTestSetup;
 
+@Listeners(com.training.reportutility.DemoListener.class)
 public class LoginUsingExcelDataTest extends BaseTestSetup {
 
-	public ArrayList<?> tabs;
-	Map<String, String> columnData = new HashMap<String,String>();;
+	public static Map<String, String> columnData = new HashMap<String,String>();;
 	public static Map<String, Map<String,String>> excelDataSet = new HashMap<String, Map<String,String>>();
 
 	@BeforeClass
@@ -28,15 +27,14 @@ public class LoginUsingExcelDataTest extends BaseTestSetup {
 	}
 
 	@Test
-	public void mouseAndKeyBoardActions_MoveToElement_And_DoubleClick() throws InterruptedException {
+	public void loginUsingExcelData() throws InterruptedException {
 
+		for (int i = 0; i <= excelDataSet.size(); i++) {
+			if (excelDataSet.get("Row" + i) != null) {
+				columnData = excelDataSet.get("Row" + i);
 
-		for(int i = 0; i <= excelDataSet.size(); i++) {
-			
-	    columnData = excelDataSet.get("Row" + i);
-	    
-	    login(columnData.get("UserName"), columnData.get("Password"));
-	    
+				login(columnData.get("UserName"), columnData.get("Password"));
+			}
 		}
 	}
 
@@ -57,11 +55,5 @@ public class LoginUsingExcelDataTest extends BaseTestSetup {
 
 		driver.findElement(By.xpath("//a[text()=\"Signup\"]/../../../../div/div/input[@value=\"Submit\"]")).click();
 		Thread.sleep(3000);
-	}
-
-	@AfterClass
-	public void teatDown() {
-
-		driver.close();
 	}
 }

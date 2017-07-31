@@ -68,36 +68,37 @@ public class DemoListener extends DriverUtility implements ITestListener, ISuite
 
 	}
 
+	@Override
+	public void onTestStart(ITestResult result) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onTestSkipped(ITestResult result) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onTestFailedButWithinSuccessPercentage(ITestResult result) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onStart(ITestContext context) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onFinish(ITestContext context) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	// This belongs to ITestListener and will execute before the main test start (@Test)
 
-	public void onTestStart(ITestResult arg0) {
-
-		//System.out.println("The execution of the main test starts now");
-
-	}
-
-	// This belongs to ITestListener and will execute only if any of the main test(@Test) get skipped
-
-	public void onTestSkipped(ITestResult arg0) {
-
-		report.fGenerateExcelReport(arg0);
-
-		}
-
-	@Override
-	public void onFinish(ITestContext arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onStart(ITestContext arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onTestFailedButWithinSuccessPercentage(ITestResult arg0) {
-		// TODO Auto-generated method stub
-	}
+	
 }

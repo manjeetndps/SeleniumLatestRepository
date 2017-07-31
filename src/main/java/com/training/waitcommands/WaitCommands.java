@@ -29,7 +29,7 @@ public class WaitCommands extends DriverUtility {
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 	}
 
-	public void webDriverWaitFor(long timeUnit) {
+	public static void webDriverWaitFor(long timeUnit) {
 		
 		if (timeUnit > 30 ) {
 			setDriverWait(new WebDriverWait(driver, timeUnit));
@@ -42,8 +42,8 @@ public class WaitCommands extends DriverUtility {
 		return driverWait;
 	}
 
-	public void setDriverWait(WebDriverWait driverWait) {
-		this.driverWait = driverWait;
+	public static void setDriverWait(WebDriverWait driverWaitFor) {
+		driverWait = driverWaitFor;
 	}
 }
 

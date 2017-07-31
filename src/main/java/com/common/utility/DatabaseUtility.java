@@ -13,10 +13,12 @@ import java.sql.Statement;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.testng.annotations.Listeners;
 
 import com.training.constants.ConfigConstant;
 import com.training.webdriverhelper.BaseTestSetup;
 
+@Listeners(com.training.reportutility.DemoListener.class)
 public class DatabaseUtility extends BaseTestSetup {
 
 	private static Logger logger = LoggerFactory.getLogger(DatabaseUtility.class);
@@ -24,7 +26,7 @@ public class DatabaseUtility extends BaseTestSetup {
 	private Connection connection;
     private Statement statement;
     private ResultSet resultSet;
-    public static String databaseType;
+    public String databaseType;
 	
     public DatabaseUtility() throws SQLException, IOException{
 
@@ -32,7 +34,6 @@ public class DatabaseUtility extends BaseTestSetup {
     	databaseType = configDataList.get(ConfigConstant.DATABASENAME).toString();
     }
 
-	@SuppressWarnings("static-access")
 	public Connection getDBConnection(String databaseType) {
 		this.databaseType = databaseType;
 

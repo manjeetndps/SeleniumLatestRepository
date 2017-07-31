@@ -16,13 +16,15 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
-import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Listeners;
+import org.testng.annotations.Test;
 import org.testng.internal.TestResult;
 
 import com.common.utility.DatabaseUtility;
 import com.training.webdriverhelper.BaseTestSetup;
 
+@Listeners(com.training.reportutility.DemoListener.class)
 public class MouseAndKeyboardActionsTest extends BaseTestSetup {
 
 	private WebDriver driver;
@@ -38,9 +40,6 @@ public class MouseAndKeyboardActionsTest extends BaseTestSetup {
 	public void setup(){
 		
 		driver = new FirefoxDriver();
-		
-		/*System.setProperty("webdriver.chrome.driver", "./lib/chromedriver.exe");
-		driver = new ChromeDriver();*/
 		
 		action = new Actions(driver);
 		
@@ -323,16 +322,19 @@ public class MouseAndKeyboardActionsTest extends BaseTestSetup {
 	}
 	
 	
-	// @Test()
-	@SuppressWarnings("static-access")
+	@Test()
 	public void mouseAndKeyBoardActions_ConnectToDB() throws InterruptedException, IOException {
 
 		try {
 			databaseUtility = new DatabaseUtility();
 
 			databaseUtility.getDBConnection(databaseUtility.databaseType);
+			
+			System.out.println("Connection to database is eshtablished.");
 
 			databaseUtility.executeQuery("SELECT NAME FROM employee WHERE id = 100;");
+			
+			System.out.println("Query executed successfully.");
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -356,13 +358,4 @@ public class MouseAndKeyboardActionsTest extends BaseTestSetup {
 		driver.findElement(By.xpath("//a[text()=\"Signup\"]/../../../../div/div/input[@value=\"Submit\"]")).click();
 		Thread.sleep(3000);
 	}
-	
-	
-	
-	@AfterClass
-	public void teatDown(){
-		
-		driver.close();
-	}
-
 }
