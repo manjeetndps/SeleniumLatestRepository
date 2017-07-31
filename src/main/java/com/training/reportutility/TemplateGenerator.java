@@ -285,7 +285,7 @@ public class TemplateGenerator extends BaseTestSetup{
 				+ " </font> " + ln + " </span>" + ln + " </td> " + ln
 				+ "<td align=\"left\" valign=\"middle\" class=\"testDetails\">"
 				+ ln + "<span  class=\"testDetails\">" + ln + "Test Type :<font color=\"#FFFFFF\"> "
-				+ configDataList.get(ConfigConstant.APPNAME).toString() + ln + " </font></span> " + ln + " </td> " + ln
+				+ configDataList.get(ConfigConstant.TESTTYPE).toString() + ln + " </font></span> " + ln + " </td> " + ln
 				+ " </tr>" + ln + " </table> " + ln + "</div>";
 
 		String execDetails = "<div id=\"execDetails\"> "

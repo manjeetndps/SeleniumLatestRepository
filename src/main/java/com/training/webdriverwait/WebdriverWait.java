@@ -14,7 +14,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-
 import com.training.webdriverhelper.DriverUtility;
 
 public class WebdriverWait extends DriverUtility{
@@ -80,7 +79,7 @@ public class WebdriverWait extends DriverUtility{
 	public static void fluentWait() {
 		try
 		{
-		new FluentWait(driver).withTimeout(30, TimeUnit.SECONDS).pollingEvery(10, TimeUnit.SECONDS)
+		new FluentWait(driver).withTimeout(60, TimeUnit.SECONDS).pollingEvery(5, TimeUnit.SECONDS)
 				.ignoring(Exception.class);
 		}
 		catch(Exception ex)
@@ -109,6 +108,96 @@ public class WebdriverWait extends DriverUtility{
 		}
 
 		return presentFlag;
-
+	}
+	
+	public static void waitForAttributePresent(By by , String attribute, String attributeValue)
+	{
+		try
+		{
+			WebDriverWait waitForElementPresence = new WebDriverWait(driver, timeout);
+			waitForElementPresence.until(ExpectedConditions.attributeContains(by, attribute, attributeValue));
+		}
+		catch(Exception ex)
+		{
+			Assert.fail(timeout + " Seconds Waited For Attribute "+ex.getMessage());
+		}
+	}
+	
+	public static void waitForAttributePresent(WebElement element , String attribute, String attributeValue)
+	{
+		try
+		{
+			WebDriverWait waitForElementPresence = new WebDriverWait(driver, timeout);
+			waitForElementPresence.until(ExpectedConditions.attributeToBe(element, attribute, attributeValue));
+		}
+		catch(Exception ex)
+		{
+			Assert.fail(timeout + " Seconds Waited For Attribute "+ex.getMessage());
+		}
+	}
+	
+	public static void waitForFrameAndSwitchToIt(WebElement element )
+	{
+		try
+		{
+			WebDriverWait waitForElementPresence = new WebDriverWait(driver, timeout);
+			waitForElementPresence.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(element));
+		}
+		catch(Exception ex)
+		{
+			Assert.fail(timeout + " Seconds Waited For Frame "+ex.getMessage());
+		}
+	}
+	
+	public static void waitForFrameAndSwitchToIt(int frameIndex )
+	{
+		try
+		{
+			WebDriverWait waitForElementPresence = new WebDriverWait(driver, timeout);
+			waitForElementPresence.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(frameIndex));
+		}
+		catch(Exception ex)
+		{
+			Assert.fail(timeout + " Seconds Waited For Frame "+ex.getMessage());
+		}
+	}
+	
+	public static void waitForFrameAndSwitchToIt(String frameName )
+	{
+		try
+		{
+			WebDriverWait waitForElementPresence = new WebDriverWait(driver, timeout);
+			waitForElementPresence.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(frameName));
+		}
+		catch(Exception ex)
+		{
+			Assert.fail(timeout + " Seconds Waited For Frame "+ex.getMessage());
+		}
+	}
+	
+	public static void waitForFrameAndSwitchToIt(By frameName )
+	{
+		try
+		{
+			WebDriverWait waitForElementPresence = new WebDriverWait(driver, timeout);
+			waitForElementPresence.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(frameName));
+		}
+		catch(Exception ex)
+		{
+			Assert.fail(timeout + " Seconds Waited For Frame "+ex.getMessage());
+		}
+	}
+	
+	public static void waitForElementPresent(By locator )
+	{
+		try
+		{
+			WebDriverWait waitForElementPresence = new WebDriverWait(driver, timeout);
+			waitForElementPresence.until(ExpectedConditions.presenceOfElementLocated(locator));
+		}
+		catch(Exception ex)
+		{
+			Assert.fail(timeout + " Seconds Waited For element "+ex.getMessage());
+		}
 	}
 }

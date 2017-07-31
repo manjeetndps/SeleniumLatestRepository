@@ -12,13 +12,13 @@ public class WidgetPage extends BasePage{
 	}
 	
 	@FindBy(xpath = "//a[text()='Widget']")
-	public WebElement lnkWidget;
+	private WebElement lnkWidget;
 	
 	@FindBy(xpath = "//a[text()='Slider']")
 	public WebElement lnkSlider;
 	
 	@FindBy(xpath = "//div[@id='slider-range-max']/span")
-	public WebElement btnSlider;
+	private WebElement btnSlider;
 	
 	@FindBy(xpath = "//a[text()='Tooltip']")
 	public WebElement lnkTooltip;
@@ -29,6 +29,8 @@ public class WidgetPage extends BasePage{
 	@FindBy(css = ".ui-tooltip-content")
 	public WebElement txtTooltipContent;
 	
+	@FindBy(xpath = "//label[contains(text(), 'Minimum number of bedrooms:')]")
+	private WebElement bedrooms;
 	
 	public WebElement getLnkWidget() {
 		return lnkWidget;
@@ -52,5 +54,9 @@ public class WidgetPage extends BasePage{
 	
 	public WebElement getTooltipContent() {
 		return txtTooltipContent;
+	}
+	
+	public WebElement getBedrooms() {
+		return bedrooms;
 	}
 }

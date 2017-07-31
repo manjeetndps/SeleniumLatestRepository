@@ -22,6 +22,7 @@ public class ContextData implements Serializable {
 	private boolean doPressReturn;
 	private boolean isContextClick;
 	private boolean isSlider;
+	private boolean isRelease;
 
 	public ContextData() {
         super();
@@ -32,6 +33,7 @@ public class ContextData implements Serializable {
 		doPressReturn = false;
 		isContextClick = false;
 		isSlider = false;
+		isRelease = false;
     }
 	
 	public int getnumberCount() {
@@ -88,6 +90,14 @@ public class ContextData implements Serializable {
 
 	public void setSlider(boolean isSlider) {
 		this.isSlider = isSlider;
+	}
+	
+	public boolean isRelease() {
+		return isRelease;
+	}
+
+	public void setRelease(boolean isRelease) {
+		this.isRelease = isRelease;
 	}
 	
     /**

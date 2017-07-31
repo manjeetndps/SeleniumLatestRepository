@@ -270,8 +270,7 @@ public class MouseAndKeyBoardActions extends FindElement {
 			if (accept) {
 				WebdriverWait.isAlertPresent();
 				driver.switchTo().alert().accept();
-			}
-			else{
+			} else {
 
 				WebdriverWait.isAlertPresent();
 				driver.switchTo().alert().dismiss();
@@ -286,40 +285,37 @@ public class MouseAndKeyBoardActions extends FindElement {
 	/**
 	 * scroll window to an element view.
 	 */
-	public static void scrollToViewElement(WebElement scrollToElement)
-	{
+	public static void scrollToViewElement(WebElement scrollToElement) {
 
-		try
-		{
+		try {
 			WebdriverWait.getWebDriver().wait(10000);
 			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", scrollToElement);
-		} 
-		
-		catch(Exception ex)
-		{
-			Assert.fail("Error occured while forward navigation ::"+ex.getMessage());
+		}
+
+		catch (Exception ex) {
+			Assert.fail("Error occured while forward navigation ::" + ex.getMessage());
 		}
 	}
-	
+
 	/**
 	 * Keys press.
 	 */
-	public static void keyPress(WebElement element, Keys keyToPress, String textToSend)
-	{
+	public static void keyPress(WebElement element, Keys keyToPress, String textToSend) {
 
 		try {
 			action = new Actions(driver);
-			action.keyDown(element, keyToPress).sendKeys(textToSend)
-					.keyUp(element, keyToPress).perform();
+			action.keyDown(element, keyToPress).sendKeys(textToSend).keyUp(element, keyToPress).perform();
 		}
 
 		catch (Exception ex) {
 			Assert.fail("Error occured while key press ::" + ex.getMessage());
 		}
 	}
-	
+
 	/**
-	 * This method is to context click i.e. right click on an element as well as hold and slide an element
+	 * This method is to context click i.e. right click on an element as well as
+	 * hold and slide an element
+	 * 
 	 * @param data
 	 */
 	public static void contextSelect(ContextData data) {
@@ -329,21 +325,26 @@ public class MouseAndKeyBoardActions extends FindElement {
 					|| (data.getKey() == Keys.ARROW_LEFT) || (data.getKey() == Keys.ARROW_RIGHT)) {
 
 				if (data.isContextClick()) {
+					WebdriverWait.waitForElementPresent(data.getElement());
 					action.contextClick(data.getElement()).perform();
 					action.sendKeys(data.getKey()).perform();
-				} else if (data.isSlider()) {
+				}
+				if (data.isSlider()) {
+					WebdriverWait.waitForElementPresent(data.getElement());
 					action.clickAndHold(data.getElement()).perform();
 					action.sendKeys(data.getKey()).perform();
+				}
+				if (data.isRelease()) {
+					WebdriverWait.waitForElementPresent(data.getElement());
+					action.release(data.getElement()).perform();
 				}
 			}
 		}
 		if (data.isDoPressEnter()) {
 			action.sendKeys(Keys.ENTER).perform();
-		} else if (data.isDoPressReturn()) {
+		}
+		if (data.isDoPressReturn()) {
 			action.sendKeys(Keys.RETURN).perform();
-		} else {
-			action.release(data.getElement()).perform();
-			logger.info("User don't want to click on Enter key.Clickmay not be required!");
 		}
 	}
 }

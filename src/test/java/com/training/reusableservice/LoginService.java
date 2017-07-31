@@ -21,6 +21,5 @@ public class LoginService extends BaseTestSetup {
 
 		signInPage.clickSubmittButton();
 		
-		WebdriverWait.fluentWait();
 	}
 }
