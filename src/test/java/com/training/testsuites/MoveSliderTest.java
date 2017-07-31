@@ -47,6 +47,7 @@ public class MoveSliderTest extends BaseTestSetup {
 		WaitCommands.explicitWait(widgetPage.getBedrooms());
 		Assert.assertEquals(widgetPage.getBedrooms().getText(), "Minimum number of bedrooms:");
 			
+		contextData = contextData.copyContextData();
 		driver.switchTo().defaultContent();
 	}
 	

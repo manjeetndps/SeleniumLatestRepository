@@ -13,7 +13,7 @@ public class ContextData implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private static Logger logger = LoggerFactory.getLogger(ContextData.class);
+	private static final Logger logger = LoggerFactory.getLogger(ContextData.class);
 	 
 	private int numberCount;
 	private WebElement element;
@@ -110,7 +110,7 @@ public class ContextData implements Serializable {
         try {
             answer = (ContextData) SerializationUtils.clone(this);
         } catch (SerializationException e) {
-            logger.error(StringUtils.EMPTY, e);
+            logger.error(StringUtils.EMPTY, e.getMessage());
         }
         return answer;
     }

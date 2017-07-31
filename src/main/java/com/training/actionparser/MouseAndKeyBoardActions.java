@@ -17,6 +17,7 @@ import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 
 import com.common.databuilder.ContextData;
+import com.common.databuilder.FrameDataBuilder;
 import com.training.webdriverhelper.FindElement;
 import com.training.webdriverwait.WebdriverWait;
 
@@ -28,6 +29,7 @@ public class MouseAndKeyBoardActions extends FindElement {
 
 	public static void enterText(WebElement element, String valueToBeEnter, String fieldName) {
 		try {
+			WebdriverWait.waitForElementPresent(element);
 			element.sendKeys(valueToBeEnter);
 			logger.info(valueToBeEnter + " entered into the '" + fieldName + "' Text Box");
 		} catch (Exception ex) {
@@ -41,6 +43,7 @@ public class MouseAndKeyBoardActions extends FindElement {
 
 	public static void clearText(WebElement element, String fieldName) {
 		try {
+			WebdriverWait.waitForElementPresent(element);
 			element.clear();
 			logger.info("Cleared text the '" + fieldName + "' Text Box");
 		} catch (Exception ex) {
@@ -52,6 +55,7 @@ public class MouseAndKeyBoardActions extends FindElement {
 
 	public static void clickElement(WebElement element, String fieldName) {
 		try {
+			WebdriverWait.waitForElementPresent(element);
 			element.click();
 			logger.info(fieldName + " Clicked Successfully");
 		} catch (Exception ex) {
@@ -62,7 +66,7 @@ public class MouseAndKeyBoardActions extends FindElement {
 
 	public static void selectDropDownItem(WebElement eListBox, String vLabelOrIndexOrValue, String vBy) {
 		try {
-
+			WebdriverWait.waitForElementPresent(eListBox);
 			Select comboBox = new Select(eListBox);
 			switch (vBy) {
 			case "text":
@@ -92,7 +96,7 @@ public class MouseAndKeyBoardActions extends FindElement {
 		String listVal = null;
 
 		try {
-
+			WebdriverWait.waitForElementPresent(eListBox);
 			Select comboBox = new Select(eListBox);
 			options = comboBox.getOptions();
 
@@ -116,7 +120,7 @@ public class MouseAndKeyBoardActions extends FindElement {
 
 	public static void checkElement(WebElement eButtonID, String fieldName) {
 		try {
-
+			WebdriverWait.waitForElementPresent(eButtonID);
 			if (!eButtonID.isSelected())
 				eButtonID.click();
 
@@ -130,7 +134,7 @@ public class MouseAndKeyBoardActions extends FindElement {
 
 	public static void unCheckElement(WebElement eButtonID, String fieldName) {
 		try {
-
+			WebdriverWait.waitForElementPresent(eButtonID);
 			if (eButtonID.isSelected())
 				eButtonID.click();
 
@@ -144,6 +148,7 @@ public class MouseAndKeyBoardActions extends FindElement {
 
 	public static void javaScriptClickElement(WebElement element, String fieldName) {
 		try {
+			WebdriverWait.waitForElementPresent(element);
 			JavascriptExecutor executor = (JavascriptExecutor) driver;
 			executor.executeScript("arguments[0].click();", element);
 			logger.info(fieldName + " Clicked Successfully through Java Script");
@@ -156,6 +161,7 @@ public class MouseAndKeyBoardActions extends FindElement {
 	public static void mouserOver(WebElement element, String fieldName) {
 		try {
 			action = new Actions(driver);
+			WebdriverWait.waitForElementPresent(element);
 			action.moveToElement(element).perform();
 			logger.info("MouseOver on the '" + fieldName + "'");
 		} catch (Exception ex) {
@@ -166,6 +172,7 @@ public class MouseAndKeyBoardActions extends FindElement {
 
 	public static void SelectDropDownItem(WebElement eListBox, String vLabelOrIndexOrValue, String vBy) {
 		try {
+			WebdriverWait.waitForElementPresent(eListBox);
 
 			Select comboBox = new Select(eListBox);
 			switch (vBy) {
@@ -193,6 +200,7 @@ public class MouseAndKeyBoardActions extends FindElement {
 	public static void clickAndHold(WebElement element, String fieldName) {
 		try {
 			action = new Actions(driver);
+			WebdriverWait.waitForElementPresent(element);
 			action.clickAndHold(element).perform();
 			logger.info("clickAndHold on the '" + fieldName + "'");
 		} catch (Exception ex) {
@@ -204,6 +212,7 @@ public class MouseAndKeyBoardActions extends FindElement {
 	public static void doubleClick(WebElement element, String fieldName) {
 		try {
 			action = new Actions(driver);
+			WebdriverWait.waitForElementPresent(element);
 			action.doubleClick(element).perform();
 			logger.info("doubleClick on the '" + fieldName + "'");
 		} catch (Exception ex) {
@@ -215,6 +224,7 @@ public class MouseAndKeyBoardActions extends FindElement {
 	public static void release(WebElement element, String fieldName) {
 		try {
 			action = new Actions(driver);
+			WebdriverWait.waitForElementPresent(element);
 			action.release(element).perform();
 			logger.info("release on the '" + fieldName + "'");
 		} catch (Exception ex) {
@@ -227,6 +237,8 @@ public class MouseAndKeyBoardActions extends FindElement {
 	public static void dragAndDrop(WebElement sourceElement, WebElement targetElement) {
 		try {
 			action = new Actions(driver);
+			WebdriverWait.waitForElementPresent(sourceElement);
+			WebdriverWait.waitForElementPresent(targetElement);
 			action.dragAndDrop(sourceElement, targetElement).perform();
 			logger.info("Dragging  '" + sourceElement + "' and dropping on '" + targetElement + "'");
 		} catch (Exception ex) {
@@ -259,6 +271,23 @@ public class MouseAndKeyBoardActions extends FindElement {
 			driver.wait();
 		} catch (Exception ex) {
 			Assert.fail("Error occured while switching to frame  '" + frameName + "' " + ex.getMessage());
+		}
+	}
+
+	public static void waitForFrameAndswitch(FrameDataBuilder frameDataBuilder) {
+		try {
+
+			if (frameDataBuilder.getElement() != null || frameDataBuilder.getElement().isDisplayed()) {
+				WebdriverWait.waitForFrameAndSwitchToIt(frameDataBuilder.getElement());
+			} else if (frameDataBuilder.getFrameIndex() >= 0 || frameDataBuilder.isByIndex()) {
+				WebdriverWait.waitForFrameAndSwitchToIt(frameDataBuilder.getFrameIndex());
+			} else if (frameDataBuilder.getFrameName() != null || !frameDataBuilder.getFrameName().isEmpty()) {
+				WebdriverWait.waitForFrameAndSwitchToIt(frameDataBuilder.getFrameName());
+			} else if (frameDataBuilder.getBy() != null || !frameDataBuilder.getBy().toString().isEmpty()) {
+				WebdriverWait.waitForFrameAndSwitchToIt(frameDataBuilder.getBy());
+			}
+		} catch (Exception ex) {
+			Assert.fail("Error occured while switching to frame  '" + ex.getMessage());
 		}
 	}
 
