@@ -10,9 +10,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 
+import com.training.webdriverwait.WebdriverWait;
+
 public class WindowsHandler extends FindElement{
 	
 	private static Logger logger = LoggerFactory.getLogger(WindowsHandler.class);
+	private static String winHandleBefore;
 	
 	/**
 	 * Switch to immediate new window.
@@ -28,6 +31,7 @@ public class WindowsHandler extends FindElement{
 			{
 				logger.info("Window ID ::"+handle);
 				driver.switchTo().window(handle);
+				WebdriverWait.fluentWait();
 			}
 		}
 		catch(Exception ex)
@@ -115,5 +119,35 @@ public class WindowsHandler extends FindElement{
 			logger.info("Error occured while forward navigation ::"+ex.getMessage());
 			Assert.fail("Error occured!");
 		}
+	}
+	
+	public static void switchToNewWindow(boolean doCloseAndSwitchToParent) {
+
+		// Store the current window handle
+		winHandleBefore = driver.getWindowHandle();
+
+		// Perform the click operation that opens new window
+
+		// Switch to new window opened
+		for (String winHandle : driver.getWindowHandles()) {
+			driver.switchTo().window(winHandle);
+		}
+
+		// Perform the actions on new window
+
+		// Close the new window, if that window no more required
+		if (doCloseAndSwitchToParent) {
+			switchToParentWindow();
+		}
+	}
+	
+	public static void switchToParentWindow() {
+
+		driver.close();
+
+		// Switch back to original browser (first window)
+		driver.switchTo().window(winHandleBefore);
+
+		// Continue with original browser (first window)
 	}
 }

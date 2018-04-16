@@ -1,37 +1,34 @@
+/**
+ * Author:- Manjeet Kumar
+ */
+
 package com.training.pagefactory;
 
-import com.training.pageobjects.DragAndDropPage;
-import com.training.pageobjects.FramesAndWindowsPage;
-import com.training.pageobjects.HomePage;
-import com.training.pageobjects.RegistrationPage;
-import com.training.pageobjects.SignInPage;
-import com.training.pageobjects.WThreeSchoolPage;
-import com.training.pageobjects.WidgetPage;
+import com.training.pageobjects.AttendeeProfilePage;
+import com.training.pageobjects.CheckOutPage;
+import com.training.pageobjects.CreateEventPage;
+import com.training.pageobjects.CreateRegistrationPage;
+import com.training.pageobjects.LoginAndCreateFolderPage;
 
 public class PageFactory {
-
 	
-	public static SignInPage getSignInPage(){
-		return new SignInPage();
+	public static LoginAndCreateFolderPage getLoginAndCreateFolderPage(){
+		return new LoginAndCreateFolderPage();
 	}
 	
-	public static HomePage getHomePage(){
-		return new HomePage();
+	public static CreateEventPage getCreateEventPage(){
+		return new CreateEventPage();
 	}
 	
-	public static DragAndDropPage getDragAndDropPage(){
-		return new DragAndDropPage();
+	public static CreateRegistrationPage getCreateRegistrationPage(){
+		return new CreateRegistrationPage();
 	}
 	
-	public static FramesAndWindowsPage getFramesAndWindowsPage(){
-		return new FramesAndWindowsPage();
+	public static CheckOutPage getCheckOutPage(){
+		return new CheckOutPage();
 	}
 	
-	public static RegistrationPage getRegistrationPage(){
-		return new RegistrationPage();
-	}
-	
-	public static WidgetPage getWidgetPage(){
-		return new WidgetPage();
+	public static AttendeeProfilePage getAttendeeProfilePage(){
+		return new AttendeeProfilePage();
 	}
 }

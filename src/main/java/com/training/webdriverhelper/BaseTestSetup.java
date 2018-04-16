@@ -61,7 +61,7 @@ public class BaseTestSetup extends DriverUtility{
 		try
 		{
 			configDataList = new HashMap<Object, Object>();
-			file = new File("./src/test/resources/Config.properties");
+			file = new File("./Config.properties");
 			fileInput = new FileInputStream(file);
 			properties = new Properties();
 
@@ -85,7 +85,7 @@ public class BaseTestSetup extends DriverUtility{
 		return configDataList;
 	}
 	
-	@AfterClass(alwaysRun=true)
+	//@AfterClass(alwaysRun=true)
 	public void tearDown()
 	{
 		if (driver != null){

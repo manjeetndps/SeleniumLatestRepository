@@ -17,7 +17,6 @@ import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 
 import com.common.databuilder.ContextData;
-import com.common.databuilder.FrameDataBuilder;
 import com.training.webdriverhelper.FindElement;
 import com.training.webdriverwait.WebdriverWait;
 
@@ -29,7 +28,6 @@ public class MouseAndKeyBoardActions extends FindElement {
 
 	public static void enterText(WebElement element, String valueToBeEnter, String fieldName) {
 		try {
-			WebdriverWait.waitForElementPresent(element);
 			element.sendKeys(valueToBeEnter);
 			logger.info(valueToBeEnter + " entered into the '" + fieldName + "' Text Box");
 		} catch (Exception ex) {
@@ -43,7 +41,6 @@ public class MouseAndKeyBoardActions extends FindElement {
 
 	public static void clearText(WebElement element, String fieldName) {
 		try {
-			WebdriverWait.waitForElementPresent(element);
 			element.clear();
 			logger.info("Cleared text the '" + fieldName + "' Text Box");
 		} catch (Exception ex) {
@@ -55,7 +52,6 @@ public class MouseAndKeyBoardActions extends FindElement {
 
 	public static void clickElement(WebElement element, String fieldName) {
 		try {
-			WebdriverWait.waitForElementPresent(element);
 			element.click();
 			logger.info(fieldName + " Clicked Successfully");
 		} catch (Exception ex) {
@@ -66,7 +62,7 @@ public class MouseAndKeyBoardActions extends FindElement {
 
 	public static void selectDropDownItem(WebElement eListBox, String vLabelOrIndexOrValue, String vBy) {
 		try {
-			WebdriverWait.waitForElementPresent(eListBox);
+
 			Select comboBox = new Select(eListBox);
 			switch (vBy) {
 			case "text":
@@ -96,7 +92,7 @@ public class MouseAndKeyBoardActions extends FindElement {
 		String listVal = null;
 
 		try {
-			WebdriverWait.waitForElementPresent(eListBox);
+
 			Select comboBox = new Select(eListBox);
 			options = comboBox.getOptions();
 
@@ -120,7 +116,7 @@ public class MouseAndKeyBoardActions extends FindElement {
 
 	public static void checkElement(WebElement eButtonID, String fieldName) {
 		try {
-			WebdriverWait.waitForElementPresent(eButtonID);
+
 			if (!eButtonID.isSelected())
 				eButtonID.click();
 
@@ -134,7 +130,7 @@ public class MouseAndKeyBoardActions extends FindElement {
 
 	public static void unCheckElement(WebElement eButtonID, String fieldName) {
 		try {
-			WebdriverWait.waitForElementPresent(eButtonID);
+
 			if (eButtonID.isSelected())
 				eButtonID.click();
 
@@ -148,7 +144,6 @@ public class MouseAndKeyBoardActions extends FindElement {
 
 	public static void javaScriptClickElement(WebElement element, String fieldName) {
 		try {
-			WebdriverWait.waitForElementPresent(element);
 			JavascriptExecutor executor = (JavascriptExecutor) driver;
 			executor.executeScript("arguments[0].click();", element);
 			logger.info(fieldName + " Clicked Successfully through Java Script");
@@ -161,7 +156,6 @@ public class MouseAndKeyBoardActions extends FindElement {
 	public static void mouserOver(WebElement element, String fieldName) {
 		try {
 			action = new Actions(driver);
-			WebdriverWait.waitForElementPresent(element);
 			action.moveToElement(element).perform();
 			logger.info("MouseOver on the '" + fieldName + "'");
 		} catch (Exception ex) {
@@ -172,7 +166,6 @@ public class MouseAndKeyBoardActions extends FindElement {
 
 	public static void SelectDropDownItem(WebElement eListBox, String vLabelOrIndexOrValue, String vBy) {
 		try {
-			WebdriverWait.waitForElementPresent(eListBox);
 
 			Select comboBox = new Select(eListBox);
 			switch (vBy) {
@@ -200,7 +193,6 @@ public class MouseAndKeyBoardActions extends FindElement {
 	public static void clickAndHold(WebElement element, String fieldName) {
 		try {
 			action = new Actions(driver);
-			WebdriverWait.waitForElementPresent(element);
 			action.clickAndHold(element).perform();
 			logger.info("clickAndHold on the '" + fieldName + "'");
 		} catch (Exception ex) {
@@ -212,7 +204,6 @@ public class MouseAndKeyBoardActions extends FindElement {
 	public static void doubleClick(WebElement element, String fieldName) {
 		try {
 			action = new Actions(driver);
-			WebdriverWait.waitForElementPresent(element);
 			action.doubleClick(element).perform();
 			logger.info("doubleClick on the '" + fieldName + "'");
 		} catch (Exception ex) {
@@ -224,7 +215,6 @@ public class MouseAndKeyBoardActions extends FindElement {
 	public static void release(WebElement element, String fieldName) {
 		try {
 			action = new Actions(driver);
-			WebdriverWait.waitForElementPresent(element);
 			action.release(element).perform();
 			logger.info("release on the '" + fieldName + "'");
 		} catch (Exception ex) {
@@ -237,8 +227,6 @@ public class MouseAndKeyBoardActions extends FindElement {
 	public static void dragAndDrop(WebElement sourceElement, WebElement targetElement) {
 		try {
 			action = new Actions(driver);
-			WebdriverWait.waitForElementPresent(sourceElement);
-			WebdriverWait.waitForElementPresent(targetElement);
 			action.dragAndDrop(sourceElement, targetElement).perform();
 			logger.info("Dragging  '" + sourceElement + "' and dropping on '" + targetElement + "'");
 		} catch (Exception ex) {
@@ -265,6 +253,10 @@ public class MouseAndKeyBoardActions extends FindElement {
 		}
 	}
 
+	/*
+	 * Switch to frame by name or Id
+	 * */
+	 
 	public static void switchToFrame(String frameName) {
 		try {
 			driver.switchTo().frame(frameName);
@@ -273,21 +265,42 @@ public class MouseAndKeyBoardActions extends FindElement {
 			Assert.fail("Error occured while switching to frame  '" + frameName + "' " + ex.getMessage());
 		}
 	}
-
-	public static void waitForFrameAndswitch(FrameDataBuilder frameDataBuilder) {
+	
+	/*
+	 * WebElement Switch to frame
+	 * */
+	 
+	public static void switchToFrameElement(WebElement element) {
 		try {
-
-			if (frameDataBuilder.getElement() != null || frameDataBuilder.getElement().isDisplayed()) {
-				WebdriverWait.waitForFrameAndSwitchToIt(frameDataBuilder.getElement());
-			} else if (frameDataBuilder.getFrameIndex() >= 0 || frameDataBuilder.isByIndex()) {
-				WebdriverWait.waitForFrameAndSwitchToIt(frameDataBuilder.getFrameIndex());
-			} else if (frameDataBuilder.getFrameName() != null || !frameDataBuilder.getFrameName().isEmpty()) {
-				WebdriverWait.waitForFrameAndSwitchToIt(frameDataBuilder.getFrameName());
-			} else if (frameDataBuilder.getBy() != null || !frameDataBuilder.getBy().toString().isEmpty()) {
-				WebdriverWait.waitForFrameAndSwitchToIt(frameDataBuilder.getBy());
-			}
+			WebdriverWait.waitForElementPresent(element);
+			driver.switchTo().frame(element);
 		} catch (Exception ex) {
-			Assert.fail("Error occured while switching to frame  '" + ex.getMessage());
+			Assert.fail("Error occured while switching to frame  '" + element.getTagName() + "' " + ex.getMessage());
+		}
+	}
+	
+	/*
+	 * Switch to Parent frame
+	 * */
+	 
+	public static void switchToParentFrame() {
+		try {
+			driver.switchTo().parentFrame();
+		} catch (Exception ex) {
+			Assert.fail(ex.getMessage());
+		}
+	}
+	
+	/*
+	 * Switch to default frame
+	 * */
+	 
+	public static void switchToDefaultFrame() {
+		try {
+			driver.switchTo().defaultContent();
+			driver.wait();
+		} catch (Exception ex) {
+			Assert.fail(ex.getMessage());
 		}
 	}
 
@@ -299,7 +312,8 @@ public class MouseAndKeyBoardActions extends FindElement {
 			if (accept) {
 				WebdriverWait.isAlertPresent();
 				driver.switchTo().alert().accept();
-			} else {
+			}
+			else{
 
 				WebdriverWait.isAlertPresent();
 				driver.switchTo().alert().dismiss();
@@ -314,37 +328,40 @@ public class MouseAndKeyBoardActions extends FindElement {
 	/**
 	 * scroll window to an element view.
 	 */
-	public static void scrollToViewElement(WebElement scrollToElement) {
+	public static void scrollToViewElement(WebElement scrollToElement)
+	{
 
-		try {
+		try
+		{
 			WebdriverWait.getWebDriver().wait(10000);
 			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", scrollToElement);
-		}
-
-		catch (Exception ex) {
-			Assert.fail("Error occured while forward navigation ::" + ex.getMessage());
+		} 
+		
+		catch(Exception ex)
+		{
+			Assert.fail("Error occured while forward navigation ::"+ex.getMessage());
 		}
 	}
-
+	
 	/**
 	 * Keys press.
 	 */
-	public static void keyPress(WebElement element, Keys keyToPress, String textToSend) {
+	public static void keyPress(WebElement element, Keys keyToPress, String textToSend)
+	{
 
 		try {
 			action = new Actions(driver);
-			action.keyDown(element, keyToPress).sendKeys(textToSend).keyUp(element, keyToPress).perform();
+			action.keyDown(element, keyToPress).sendKeys(textToSend)
+					.keyUp(element, keyToPress).perform();
 		}
 
 		catch (Exception ex) {
 			Assert.fail("Error occured while key press ::" + ex.getMessage());
 		}
 	}
-
+	
 	/**
-	 * This method is to context click i.e. right click on an element as well as
-	 * hold and slide an element
-	 * 
+	 * This method is to context click i.e. right click on an element as well as hold and slide an element
 	 * @param data
 	 */
 	public static void contextSelect(ContextData data) {
@@ -354,26 +371,21 @@ public class MouseAndKeyBoardActions extends FindElement {
 					|| (data.getKey() == Keys.ARROW_LEFT) || (data.getKey() == Keys.ARROW_RIGHT)) {
 
 				if (data.isContextClick()) {
-					WebdriverWait.waitForElementPresent(data.getElement());
 					action.contextClick(data.getElement()).perform();
 					action.sendKeys(data.getKey()).perform();
-				}
-				if (data.isSlider()) {
-					WebdriverWait.waitForElementPresent(data.getElement());
+				} else if (data.isSlider()) {
 					action.clickAndHold(data.getElement()).perform();
 					action.sendKeys(data.getKey()).perform();
-				}
-				if (data.isRelease()) {
-					WebdriverWait.waitForElementPresent(data.getElement());
-					action.release(data.getElement()).perform();
 				}
 			}
 		}
 		if (data.isDoPressEnter()) {
 			action.sendKeys(Keys.ENTER).perform();
-		}
-		if (data.isDoPressReturn()) {
+		} else if (data.isDoPressReturn()) {
 			action.sendKeys(Keys.RETURN).perform();
+		} else {
+			action.release(data.getElement()).perform();
+			logger.info("User don't want to click on Enter key.Clickmay not be required!");
 		}
 	}
 }
